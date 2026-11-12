@@ -1,0 +1,36 @@
+{
+  "asset_description_variants": [
+    "Lightweight utility for smooth camera effects.",
+    "Spring-based animation helper for UI and parts.",
+    "Simple tween wrapper with easing presets.",
+    "Cross-platform input abstraction module.",
+    "Animation controller with blending support.",
+    "Sound pooling and management utility.",
+    "DataStore wrapper with auto-retry.",
+    "UI layout and animation helper.",
+    "Extended math utilities for game dev.",
+    "Signal and event bridge module."
+  ],
+  "bulk_count": 50,
+  "creator_type": "User",
+  "donor_asset_ids": [
+    6648319856,
+    7248238451,
+    6523456789,
+    5938201234,
+    4812937651
+  ],
+  "group_id": null,
+  "name_variants": [
+    "CameraShaker",
+    "SpringModule",
+    "TweenUtil",
+    "InputHandler",
+    "AnimationUtil",
+    "SoundManager",
+    "DataUtil",
+    "UIHelper",
+    "MathLib",
+    "EventBridge"
+  ]
+}
