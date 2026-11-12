@@ -1,1 +1,51 @@
+name: zegma-push bulk upload
 
+on:
+  workflow_dispatch:
+    inputs:
+      bulk_count:
+        description: "Number of assets to upload"
+        required: true
+        default: "50"
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install requests
+
+      - name: Patch bulk_count from input
+        env:
+          BULK_COUNT: ${{ github.event.inputs.bulk_count }}
+        run: |
+          python - <<'EOF'
+          import json, os
+          path = "config.json"
+          cfg  = json.loads(open(path).read())
+          cfg["bulk_count"] = int(os.environ["BULK_COUNT"])
+          open(path, "w").write(json.dumps(cfg, indent=2))
+          EOF
+
+      - name: Run uploader
+        env:
+          ROBLOX_API_KEY: ${{ secrets.ROBLOX_API_KEY }}
+          ROBLOX_USER_ID: ${{ secrets.ROBLOX_USER_ID }}
+        run: |
+          cd scripts
+          python upload.py
+
+      - name: Save results artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: upload-results-${{ github.run_number }}
+          path: upload_results.json
